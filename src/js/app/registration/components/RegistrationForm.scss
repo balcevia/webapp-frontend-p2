@@ -1,0 +1,26 @@
+.registration-form-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  
+    .card {
+      width: 50%
+    }
+  
+    .registration-form {
+      .registration-form-row {
+        padding-bottom: 1rem;
+      }
+      .registration-form-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  
+    .registration-form > * {
+      width: 100%
+    }
+  }

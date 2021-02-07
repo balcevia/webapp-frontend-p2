@@ -1,0 +1,25 @@
+.login-form-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  
+    .card {
+      width: 30%
+    }
+  
+    .login-form {
+      .login-form-row {
+        padding-bottom: 1rem;
+      }
+      .login-form-actions {
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+  
+    .login-form > * {
+      width: 100%
+    }
+  }
