@@ -1,12 +1,14 @@
 import React from 'react';
 import Table from '../../common/table/Table';
 import Button from '../../common/Button';
+import renderIf from 'render-if';
+import {PackageStatus} from "../../constants";
 
-const Packages = ({packages, downloadFile}) => {
+const Packages = ({packages, downloadFile, removeFile}) => {
     const headers = [{
         title: "ID",
         key: "id"
-    },{
+    }, {
         title: "Sender Name",
         key: "senderName"
     }, {
@@ -34,10 +36,19 @@ const Packages = ({packages, downloadFile}) => {
         title: "Date",
         key: "creationDate"
     }, {
-        title: "Actions",
-        key: "id",
-        valueRenderer: (id) => <Button title="Download" onClick={() => downloadFile(id)}/>
-    }];
+        title: "Status",
+        key: "status"
+    },
+        {
+            title: "Actions",
+            key: "id",
+            valueRenderer: (id, v) => <div>
+                <Button title="Download" onClick={() => downloadFile(id)}/>
+                {renderIf(v.status === PackageStatus.New)(() => (
+                    <Button title="Remove" onClick={() => removeFile(id)}/>
+                ))}
+            </div>
+        }];
     return (
         <div>
             <strong>Number of packages: {packages.length}</strong>

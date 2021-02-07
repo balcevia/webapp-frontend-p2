@@ -3,14 +3,15 @@ export const FormNames = {
     RegistrationForm: "registrationForm",
     NewPackage: "newPackage",
     UploadFileForm: "uploadFileForm",
-    Key: "Key"
-  };
-  
-  export const ModalNames = {
-    Key: "Key"
-  };
+    Key: "Key",
+    CourierPackage: "CourierPackage"
+};
 
-  export const countryList = [
+export const ModalNames = {
+    Key: "Key"
+};
+
+export const countryList = [
     "Afghanistan",
     "Albania",
     "Algeria",
@@ -260,5 +261,17 @@ export const FormNames = {
     "Zambia",
     "Zimbabwe",
     "Åland Islands"
-  ];
-  
+];
+
+
+export const PackageStatus = {
+    New: "new",
+    WaitingInTheLocker: "waitingInTheLocker",
+    Received: "received",
+    HandedToTheCourier: "handedToTheCourier"
+};
+
+export const UserRole = {
+    Sender: "sender",
+    Courier: "courier"
+};

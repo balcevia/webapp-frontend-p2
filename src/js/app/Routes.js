@@ -7,6 +7,7 @@ import {ConnectedRouter} from 'connected-react-router';
 import SecureRoute from "../app/common/SecureRoute";
 import PublicRoute from "./common/PublicRoute";
 import RegistrationFormContainer from "./registration/containers/RegistrationFromContainer";
+import {UserRole} from "./constants";
 
 const Routes = () => (
     <ConnectedRouter history={history}>
@@ -14,7 +15,7 @@ const Routes = () => (
             <PublicRoute path="/login" component={LoginContainer}/>
             <PublicRoute exact path="/" component={LoginContainer}/>
             <PublicRoute exact path="/registration" component={RegistrationFormContainer}/>
-            <SecureRoute path="/main" component={MainContainer}/>
+            <SecureRoute path="/main" component={MainContainer} requiredRoles={[UserRole.Sender, UserRole.Courier]}/>
         </Switch>
     </ConnectedRouter>
 );

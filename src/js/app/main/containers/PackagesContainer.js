@@ -12,7 +12,7 @@ class PackagesContainer extends React.PureComponent {
 
     render = () => {
         return (
-            <Packages packages={this.props.packages} downloadFile={this.props.operations.downloadFile}/>
+            <Packages packages={this.props.packages} downloadFile={this.props.operations.downloadFile} removeFile={this.props.operations.removeFile}/>
         );
     }
 }

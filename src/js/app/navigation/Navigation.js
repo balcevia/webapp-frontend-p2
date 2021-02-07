@@ -6,8 +6,11 @@ import loginOperationsCreator from '../login/duck/operations';
 import {connect} from 'react-redux';
 import renderIf from 'render-if';
 import logo from '../../../logo.png';
+import {UserRole} from "../constants";
+import * as Cookie from 'js-cookie';
 
 const Navigation = ({loginOperations, loggedIn}) => {
+    const role = Cookie.get("Role");
     return (
         <Navbar bg="dark" variant="dark" className="header">
             <Navbar.Brand href="/main/packages">
@@ -27,8 +30,14 @@ const Navigation = ({loginOperations, loggedIn}) => {
             ))}
             {renderIf(loggedIn)(() => [
                 <Nav className="mr-auto" key="auth-nav">
-                    <Nav.Link href="/main/packages">Packages</Nav.Link>
-                    <Nav.Link href="/main/new-package">New Package</Nav.Link>
+                    {renderIf(role === UserRole.Sender)(() => [
+                        <Nav.Link href="/main/packages" key="/main/packages">Packages</Nav.Link>,
+                        <Nav.Link href="/main/new-package" key="/main/new-package">New Package</Nav.Link>
+                    ])}
+                    {renderIf(role === UserRole.Courier)(() => [
+                        <Nav.Link href="/main/add-courier-package" key="/main/add-courier-package">Take Package</Nav.Link>,
+                        <Nav.Link href="/main/courier-packages" key="/main/courier-packages">My Packages</Nav.Link>
+                    ])}
                 </Nav>,
                 <Button variant={ButtonType.Info} title="Logout" onClick={loginOperations.logout} key="logout-button"/>
             ])}

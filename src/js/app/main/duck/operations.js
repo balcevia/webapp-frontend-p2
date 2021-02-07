@@ -1,13 +1,14 @@
 import {appServerUrl, createAppRequestAction} from "../../utils/reduxUtils";
 import types from './types';
 import _ from 'lodash';
-import alertActions from '../../common/alert/duck/actions';
 import {getFormValues, initialize} from 'redux-form';
 import {FormNames, ModalNames} from "../../constants";
 import fileDownload from "js-file-download";
 import fetchActions from "../../fetch/duck/fetchActions";
 import * as Cookies from "js-cookie";
 import modalOperations from '../../common/modal/duck/operations';
+import alertActions from '../../common/alert/duck/actions';
+import {AlertType} from "../../common/alert/Alert";
 
 const downloadFile = (id) => dispatch => {
     const param = {
@@ -70,10 +71,38 @@ const fetchPackages = () => dispatch => dispatch(createAppRequestAction({
     method: "GET"
 }));
 
+const removeFile = (id) => dispatch => dispatch(createAppRequestAction({
+    types: types.REMOVE_PACKAGES,
+    url: "package/" + id,
+    method: "DELETE",
+    successHandler: () => dispatch(fetchPackages())
+}));
+
+const addPackageToCourier = ({id}) => dispatch => {
+    return dispatch(createAppRequestAction({
+        types: types.ADD_TO_COURIER,
+        url: "package/courier/" + id,
+        method: "GET",
+        successHandler: () => {
+            dispatch(alertActions.showAlert("Package was added", AlertType.Success));
+            dispatch(initialize(FormNames.CourierPackage, undefined));
+        }
+    }));
+};
+
+const fetchCourierPackages = ()  => dispatch => dispatch(createAppRequestAction({
+    types: types.FETCH_COURIER_PACKAGES,
+    url: "package/courier",
+    method: "GET"
+}));
+
 export default {
     downloadFile,
     downloadFileFromDialog,
     createNewPackage,
     fetchUserData,
-    fetchPackages
+    fetchPackages,
+    removeFile,
+    addPackageToCourier,
+    fetchCourierPackages
 }
